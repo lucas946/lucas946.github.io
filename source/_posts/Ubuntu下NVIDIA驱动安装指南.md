@@ -9,6 +9,7 @@ tags: 软件安装
 
 由于Ubuntu自带了集成的第三方nouveau显卡驱动，如果不先去除，将无法安装Nvidia官方驱动。
 
+<!--more-->
 1. 首先打开命令行界面，输入代码`lsmod | grep nouveau`，这时可以看出命令行有多行输出结果。
 
 2. 在`/etc/modprobe.d/`目录下新建文件名为blacklist-nouveau.conf的文件。
