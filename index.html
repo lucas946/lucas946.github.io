@@ -352,154 +352,17 @@
 
       
         
-          
-            <blockquote>
+          <blockquote>
 <p>安装环境：Ubuntu 16.04 LTS</p>
 </blockquote>
 <h2 id="第一步-禁止集成的nouveau驱动"><a href="#第一步-禁止集成的nouveau驱动" class="headerlink" title="第一步 禁止集成的nouveau驱动"></a>第一步 禁止集成的nouveau驱动</h2><p>由于Ubuntu自带了集成的第三方nouveau显卡驱动，如果不先去除，将无法安装Nvidia官方驱动。</p>
-<ol>
-<li><p>首先打开命令行界面，输入代码<code>lsmod | grep nouveau</code>，这时可以看出命令行有多行输出结果。</p>
-</li>
-<li><p>在<code>/etc/modprobe.d/</code>目录下新建文件名为blacklist-nouveau.conf的文件。</p>
-</li>
-<li><p>打开blacklist-nouveau.conf，并在其中添加如下代码：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">blacklist nouveau</div><div class="line">options nouveau modeset=0</div></pre></td></tr></table></figure>
-</li>
-<li><p>更新配置信息，输入命令<code>sudo update-initramfs -u</code>，此时需要重启电脑。</p>
-</li>
-<li><p>重启电脑后会发现电脑显示屏分辨率有明显变化，在命令行界面再次输入代码<code>lsmod | grep nouveau</code>，此时无任何输出，说明nouveau驱动已被禁止。</p>
-</li>
-</ol>
-<h2 id="第二步-安装Nvidia官方驱动"><a href="#第二步-安装Nvidia官方驱动" class="headerlink" title="第二步 安装Nvidia官方驱动"></a>第二步 安装Nvidia官方驱动</h2><ol>
-<li>在命令行界面输入命令<code>sudo service lightdm stop</code>以关闭X-window服务。</li>
-<li>按住<code>Ctrl+Alt+F1</code>进入字符控制台界面。</li>
-<li>输入用户名和密码登录系统，并进入显卡驱动所在的文件夹位置。</li>
-<li>运行命令<code>sudo ./NVIDIAXXXXXXXX.run</code>完成安装。</li>
-<li>安装完成后输入命令<code>sudo service lightdm start</code>开启X-window服务并进入图形界面，此时可以看到显示屏分辨率已调至最佳。</li>
-<li>打开命令行工具，输入命令<code>nvidia-smi</code>，此时界面会有显卡信息输出，说明显卡驱动已安装成功。</li>
-</ol>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/05/Hello-Hexo/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Lucas">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/1.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="野草集">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/08/05/Hello-Hexo/" itemprop="url">Hello Hexo</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-05T20:50:59+08:00">
-                2017-08-05
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="Hello-Hexo"><a href="#Hello-Hexo" class="headerlink" title="Hello Hexo"></a>Hello Hexo</h2><p>这是第一篇博客</p>
-
-          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/09/10/Ubuntu下NVIDIA驱动安装指南/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -579,7 +442,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-count">1</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
