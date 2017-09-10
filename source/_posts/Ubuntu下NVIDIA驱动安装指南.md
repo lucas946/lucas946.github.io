@@ -1,7 +1,7 @@
 ---
 title: Ubuntu下NVIDIA驱动安装指南
 date: 2017-09-10 13:42:31
-tags: 软件开发
+tags: 软件安装
 ---
 > 安装环境：Ubuntu 16.04 LTS
 
