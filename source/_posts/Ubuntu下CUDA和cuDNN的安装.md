@@ -7,12 +7,11 @@ tags: 软件安装
 > 安装环境：Ubuntu 16.04 LTS
 > Cuda版本：cuda 8.0
 > cuDNN版本：cuDNN 5.1
-<!--more-->
 
 ## 安装Cuda
 
 1. 下载cuda的run安装文件；
-
+<!--more-->
 2. 进入安装文件所在的文件夹，执行`sudo ./cuda_xxxxx.run`命令；
 
 3. 运行安装命令后会有很多选项需要我们进行选择，第一个选项输入`accept`
