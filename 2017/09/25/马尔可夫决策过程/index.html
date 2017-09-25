@@ -363,8 +363,11 @@
 <p>本文主要讲解了马尔科夫决策过程的数学描述以及数学推导，并且为了方便理解马尔科夫决策过程，还添加了对马尔科夫性以及马尔科夫奖励过程的描述。本文的重点是理解贝尔曼期望方程和贝尔曼最优化方程，并对最优策略求解的数学描述有深刻体会。</p>
 </blockquote>
 <a id="more"></a>
-<h2 id="马尔可夫模型的几类子模型"><a href="#马尔可夫模型的几类子模型" class="headerlink" title="马尔可夫模型的几类子模型"></a>马尔可夫模型的几类子模型</h2><p>所有的马尔科夫子模型都具备<strong>马尔科夫性</strong>，即系统的下个状态只与当前状态信息有关，而与之前的状态无关。<br>$$<br>\mathbb{P}[S<em>{t+1}|S]=\mathbb{P}[S</em>{t+1}|S_1, \ldots, S_t]<br>$$<br>马尔科夫决策过程（Markov Decision Processes, MDPs）就具有马尔科夫性。所不同的是，马尔科夫决策过程还考虑了动作，即系统的下个状态不仅和当前的状态有关，也和当前采取的动作有关。这里以下棋为例，当我们在某个局面（状态s）走了一步（动作a），这时对手的选择（导致下个状态$s^*$）是不确定的，但是他的选择只与s和a有关，而不用考虑更早之前的状态和动作。</p>
+<h2 id="马尔可夫模型的几类子模型"><a href="#马尔可夫模型的几类子模型" class="headerlink" title="马尔可夫模型的几类子模型"></a>马尔可夫模型的几类子模型</h2><p>所有的马尔科夫子模型都具备<strong>马尔科夫性</strong>，即系统的下个状态只与当前状态信息有关，而与之前的状态无关。</p>
+<script type="math/tex; mode=display">
+\mathbb{P}[S_{t+1}|S]=\mathbb{P}[S_{t+1}|S_1, \ldots, S_t]</script><p>马尔科夫决策过程（Markov Decision Processes, MDPs）就具有马尔科夫性。所不同的是，马尔科夫决策过程还考虑了动作，即系统的下个状态不仅和当前的状态有关，也和当前采取的动作有关。这里以下棋为例，当我们在某个局面（状态s）走了一步（动作a），这时对手的选择（导致下个状态$s^*$）是不确定的，但是他的选择只与s和a有关，而不用考虑更早之前的状态和动作。</p>
 <p>这里再以一个表格来说明各类马尔科夫子模型之间的区别：</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -386,17 +389,61 @@
 </tr>
 </tbody>
 </table>
+</div>
 <h2 id="马尔科夫奖励过程"><a href="#马尔科夫奖励过程" class="headerlink" title="马尔科夫奖励过程"></a>马尔科夫奖励过程</h2><p>在正式讨论马尔科夫过程之前，先对马尔科夫奖励过程（Markov Reward Processes, MRPs）作一定分析，以方便后续的讲解。</p>
 <p><strong>定义：</strong>一个马尔科夫奖励过程常被描述为一个四元组，形如$(S,P,R, \gamma)$</p>
 <ul>
 <li>$S$是一个有限的状态集合</li>
 <li>$P$是一个状态转移概率矩阵，$\mathbb{P}[S_{t+1}=s^{‘}|S_t=s]$</li>
-<li>$R$是一个奖励函数，$R<em>s=\mathbb{E}[R</em>{t+1}|S_t=s]$</li>
+<li>$R$是一个奖励函数，$R_s=\mathbb{E}[R_{t+1}|S_t=s]$</li>
 <li>$\gamma$是折扣因子，$\gamma \in[0,1]$</li>
 </ul>
-<p>在分析马尔科夫奖励过程的时候，常常需要评定某一个状态的好与坏，这一功能需求通过值函数来实现。值函数会给出某一状态下未来长期的累积奖励之和的期望。特别需要注意对<strong>期望</strong>的把握，这里是对当期状态下所有未来可能的sample作均值计算。值函数的数学公式如下：<br>$$<br>v(s)=\mathbb{E}[G_t|S_t=s] \qquad (1)<br>$$<br>其中$G_t$为某一sample的累积奖励之和<br>$$<br>G_1 = R_2+\gamma R_3+\ldots+\gamma^{T-2}R_T \qquad(2)<br>$$<br>将上式的$v(s)$展开并变换成如下形式<br>$$<br>\begin{align}<br>    v(s)={} &amp; \mathbb{E}[G_t|S<em>t=s]\<br>          ={} &amp; \mathbb{E}[R</em>{t+1}+\gamma R<em>{t+2}+\gamma^2 R</em>{t+3}+\ldots |S<em>t=s]\<br>          ={} &amp; \mathbb{E}[R</em>{t+1}+\gamma (R<em>{t+2} + \gamma R</em>{t+3} + \ldots)| S<em>t=s] \<br>          ={} &amp; \mathbb{E}[R</em>{t+1}+\gamma G_{t+1}|S_t=s] \qquad(3)<br>\end{align}<br>$$<br>因为上式是对$G<em>t$作均值处理，式子（3）中的$G</em>{t+1}$可以被$v(S<em>{t+1})$替代，此时$v(s)$为<br>$$<br>v(s)=\mathbb{E}[R</em>{t+1}+\gamma v(S_{t+1})|S_t = s] \qquad(4)<br>$$<br>该式就被称为马尔科夫奖励过程的Bellman方程，它还有另外一种表达方式<br>$$<br>v(s)=R<em>s + \gamma \sum</em>{s^{‘}\in S} P_{ss^{‘}v(s^{‘})} \qquad(5)<br>$$<br>其中$P(ss^{‘})$就为状态转移概率。公式（5）的可视化描述可以用下图来表示：</p>
+<p>在分析马尔科夫奖励过程的时候，常常需要评定某一个状态的好与坏，这一功能需求通过值函数来实现。值函数会给出某一状态下未来长期的累积奖励之和的期望。特别需要注意对<strong>期望</strong>的把握，这里是对当期状态下所有未来可能的sample作均值计算。值函数的数学公式如下：</p>
+<script type="math/tex; mode=display">
+v(s)=\mathbb{E}[G_t|S_t=s] \qquad (1)</script><p>其中$G_t$为某一sample的累积奖励之和</p>
+<script type="math/tex; mode=display">
+G_1 = R_2+\gamma R_3+\ldots+\gamma^{T-2}R_T \qquad(2)</script><p>将上式的$v(s)$展开并变换成如下形式</p>
+<script type="math/tex; mode=display">
+\begin{align}
+    v(s)={} & \mathbb{E}[G_t|S_t=s]\\
+          ={} & \mathbb{E}[R_{t+1}+\gamma R_{t+2}+\gamma^2 R_{t+3}+\ldots |S_t=s]\\
+          ={} & \mathbb{E}[R_{t+1}+\gamma (R_{t+2} + \gamma R_{t+3} + \ldots)| S_t=s] \\
+          ={} & \mathbb{E}[R_{t+1}+\gamma G_{t+1}|S_t=s] \qquad(3)
+\end{align}</script><p>因为上式是对$G_t$作均值处理，式子（3）中的$G_{t+1}$可以被$v(S_{t+1})$替代，此时$v(s)$为</p>
+<script type="math/tex; mode=display">
+v(s)=\mathbb{E}[R_{t+1}+\gamma v(S_{t+1})|S_t = s] \qquad(4)</script><p>该式就被称为马尔科夫奖励过程的Bellman方程，它还有另外一种表达方式</p>
+<script type="math/tex; mode=display">
+v(s)=R_s + \gamma \sum_{s^{'}\in S} P_{ss^{'}v(s^{'})} \qquad(5)</script><p>其中$P(ss^{‘})$就为状态转移概率。公式（5）的可视化描述可以用下图来表示：</p>
 <p><img src="http://orjn2q9xs.bkt.clouddn.com/2017102502.png" alt="Bellman equation for MRPs"></p>
-<p>为了方便对Bellman方程进行求解，需要将式（5）转化为矩阵形式，如下所示<br>$$<br>v = R + \gamma Pv \qquad (6)<br>$$<br>该式又可表达为<br>$$<br>\begin{bmatrix}<br>v(1)\<br>\vdots \<br>v(n)<br>\end{bmatrix}<br>=<br>\begin{bmatrix}<br>R_1\<br>\vdots \<br>R<em>n<br>\end{bmatrix}<br>+<br>\gamma<br>\begin{bmatrix}<br>    P</em>{11} &amp; \ldots &amp; P<em>{1n}\<br>    \vdots &amp; \ddots &amp; \vdots \<br>        P</em>{n1} &amp; \ldots &amp; P_{nn}<br>\end{bmatrix}<br>\begin{bmatrix}<br>    v(1)\<br>    \vdots\<br>    v(n)<br>\end{bmatrix}<br>$$<br>式（6）的求解式如下<br>$$<br>v = (1-\gamma P)^{-1} R \qquad (7)<br>$$<br>在理想情况下，MRPs的求解可以通过式（7）进行解决，但是其计算复杂度太高（$O(n)^3$ for $n$ states），只能应用于小规模的MRPs。所以，在面对大规模的MRPs问题时，可以通过以下三种方法进行求解：</p>
+<p>为了方便对Bellman方程进行求解，需要将式（5）转化为矩阵形式，如下所示</p>
+<script type="math/tex; mode=display">
+v = R + \gamma Pv \qquad (6)</script><p>该式又可表达为</p>
+<script type="math/tex; mode=display">
+\begin{bmatrix}
+v(1)\\
+\vdots \\
+v(n)
+\end{bmatrix}
+=
+\begin{bmatrix}
+R_1\\
+\vdots \\
+R_n
+\end{bmatrix}
++
+\gamma
+\begin{bmatrix}
+    P_{11} & \ldots & P_{1n}\\
+    \vdots & \ddots & \vdots \\
+        P_{n1} & \ldots & P_{nn}
+\end{bmatrix}
+\begin{bmatrix}
+    v(1)\\
+    \vdots\\
+    v(n)
+\end{bmatrix}</script><p>式（6）的求解式如下</p>
+<script type="math/tex; mode=display">
+v = (1-\gamma P)^{-1} R \qquad (7)</script><p>在理想情况下，MRPs的求解可以通过式（7）进行解决，但是其计算复杂度太高（$O(n)^3$ for $n$ states），只能应用于小规模的MRPs。所以，在面对大规模的MRPs问题时，可以通过以下三种方法进行求解：</p>
 <ul>
 <li>Dynamic programming</li>
 <li>Monte-Carlo evaluation</li>
@@ -409,47 +456,66 @@
 <ul>
 <li>S：表示有限状态集，有$s \in S$，$s_i$表示第$i$步的状态</li>
 <li>A：表示一组有限动作集合，有$a \in A$，$a_i$表示第$i$步的动作</li>
-<li>$P<em>{ss^{‘}}^a$：表示状态转移概率。$s$表示的是在当前$s\in S$状态下，经过$a\in A$作用后，会转移到的其他状态的概率分布情况，$P</em>{ss^{‘}}^a=\mathbb{P}[S_{t+1}=s^{‘}|S_t=s, A_t=a]$</li>
-<li>R：表示回报函数，$R<em>s^a = \mathbb{E}[R</em>{t+1}|S_t=s, A_t=a]$</li>
+<li>$P_{ss^{‘}}^a$：表示状态转移概率。$s$表示的是在当前$s\in S$状态下，经过$a\in A$作用后，会转移到的其他状态的概率分布情况，$P_{ss^{‘}}^a=\mathbb{P}[S_{t+1}=s^{‘}|S_t=s, A_t=a]$</li>
+<li>R：表示回报函数，$R_s^a = \mathbb{E}[R_{t+1}|S_t=s, A_t=a]$</li>
 <li>$\gamma$是折扣因子</li>
 </ul>
 <p>可以看出MDPs是MRPs的推广，增加了动作的集合。</p>
 </li>
-<li><p>MDP的动态过程可以这样描述：某个智能体（Agent）的初始状态为$s_0$，然后从A中挑选一个动作$a<em>0$执行，执行后，智能体按$P</em>{ss_1}^a$概率随机转移到了下一个$s_1$状态。然后再执行一个动作$a_1$，就转移到了$s_2$，接下来再执行一系列其他动作。我们可以用下面的图来表示状态转移过程：</p>
+<li><p>MDP的动态过程可以这样描述：某个智能体（Agent）的初始状态为$s_0$，然后从A中挑选一个动作$a_0$执行，执行后，智能体按$P_{ss_1}^a$概率随机转移到了下一个$s_1$状态。然后再执行一个动作$a_1$，就转移到了$s_2$，接下来再执行一系列其他动作。我们可以用下面的图来表示状态转移过程：</p>
 <p><img src="http://orjn2q9xs.bkt.clouddn.com/2017102501.jpg" alt="MDP"></p>
 </li>
-<li><p>在马尔可夫决策过程中，还增加了一个新概念——决策（policy），它表示为在给定状态下选取一个动作的概率分布，表达式如下：<br>$$<br>\pi(a|s)=\mathbb{P}[A_t=a|S_t=s]<br>$$</p>
-</li>
-<li><p>给定一个马尔科夫决策过程和一个策略$\pi$，其状态序列$S_1,S_2,\ldots$可以看成一个马尔科夫过程$(S, P^{\pi})$，而其状态和奖励序列$S_1, R_2, S<em>2, \ldots$可以看成一个马尔科夫奖励过程$(S, P^{\pi}, R^{\pi}, \gamma)$，其中$P^{\pi}$和$R^{\pi}$的表达式如下<br>$$<br>P^{\pi}</em>{s,s^{‘}}=\sum<em>{a\in A}\pi(a|s)P^a</em>{ss^{‘}}<br>$$</p>
-<p>$$<br>R^{\pi}<em>s=\sum</em>{a\in A}\pi(a|s)R^a_s<br>$$</p>
-<p>​</p>
+<li><p>在马尔可夫决策过程中，还增加了一个新概念——决策（policy），它表示为在给定状态下选取一个动作的概率分布，表达式如下：</p>
+<script type="math/tex; mode=display">
+\pi(a|s)=\mathbb{P}[A_t=a|S_t=s]</script></li>
+<li><p>给定一个马尔科夫决策过程和一个策略$\pi$，其状态序列$S_1,S_2,\ldots$可以看成一个马尔科夫过程$(S, P^{\pi})$，而其状态和奖励序列$S_1, R_2, S_2, \ldots$可以看成一个马尔科夫奖励过程$(S, P^{\pi}, R^{\pi}, \gamma)$，其中$P^{\pi}$和$R^{\pi}$的表达式如下</p>
+<script type="math/tex; mode=display">
+P^{\pi}_{s,s^{'}}=\sum_{a\in A}\pi(a|s)P^a_{ss^{'}}</script><script type="math/tex; mode=display">
+R^{\pi}_s=\sum_{a\in A}\pi(a|s)R^a_s</script><p>​</p>
 </li>
 </ol>
 <h2 id="值函数"><a href="#值函数" class="headerlink" title="值函数"></a>值函数</h2><p>强化学习学到的是一个从环境到动作的映射，记为策略$\pi: S\rightarrow A$，即agent根据当前环境，采取策略$\pi$选取一个动作来执行。然而，强化学习中的当前动作不仅仅影响当前的状态，并且对未来的状态也会产生影响，这就意味着当前动作的立即回报$R^a_s$并不能准确描述这个动作的好与坏，必须将当前动作的长期回报考虑进来，共同决定这一动作的好坏程度。值函数（value function）应运而生，用了刻画当前状态策略$\pi$的长期影响。</p>
-<p>值函数分为两种， 一种被称为状态值函数（state-value function），另一种被称为动作值函数（action-value function），其定义式如下：<br>$$<br>v<em>{\pi}(s)=\mathbb{E}</em>{\pi}[G_t|S_t=s]<br>$$</p>
-<p>$$<br>q<em>{\pi}(s,a)=\mathbb{E}</em>{\pi}[G_t|S_t=s,A_t=a]<br>$$</p>
-<p>其中，状态值函数用来描述给定策略$\pi$时状态$s$的好坏程度，动作值函数则用来描述给定策略$\pi$时，在状态$s$下执行动作$a$的好坏程度。</p>
-<p>根据马尔科夫奖励过程的Bellman方程，类似地可列出马尔科夫决策过程的Bellman方程，如下所示：<br>$$<br>v<em>{\pi}(s)=\mathbb{E}[R</em>{t+1}+\gamma v<em>{\pi}(S</em>{t+1})|S_t=s]<br>$$</p>
-<p>$$<br>q<em>{\pi}(s,a)=\mathbb{E}[R</em>{t+1}+\gamma q<em>{\pi}(S</em>{t+1},A_{t+1})|S_t=s, A_t=a]<br>$$</p>
-<p>同理，马尔科夫决策过程的Bellman方程还可以被转化为如下形式<br>$$<br>v<em>{\pi}(s)=\sum</em>{a\in A}\pi(a|s)q_{\pi}(s,a)<br>$$</p>
-<p>$$<br>q<em>{\pi}(s,a)=R</em>{s}^a+\gamma \sum<em>{s^{‘}\in S} P</em>{ss^{‘}}^a v_{\pi}(s^{‘})<br>$$</p>
-<p>其可视化过程如下图所示</p>
+<p>值函数分为两种， 一种被称为状态值函数（state-value function），另一种被称为动作值函数（action-value function），其定义式如下：</p>
+<script type="math/tex; mode=display">
+v_{\pi}(s)=\mathbb{E}_{\pi}[G_t|S_t=s]</script><script type="math/tex; mode=display">
+q_{\pi}(s,a)=\mathbb{E}_{\pi}[G_t|S_t=s,A_t=a]</script><p>其中，状态值函数用来描述给定策略$\pi$时状态$s$的好坏程度，动作值函数则用来描述给定策略$\pi$时，在状态$s$下执行动作$a$的好坏程度。</p>
+<p>根据马尔科夫奖励过程的Bellman方程，类似地可列出马尔科夫决策过程的Bellman方程，如下所示：</p>
+<script type="math/tex; mode=display">
+v_{\pi}(s)=\mathbb{E}[R_{t+1}+\gamma v_{\pi}(S_{t+1})|S_t=s]</script><script type="math/tex; mode=display">
+q_{\pi}(s,a)=\mathbb{E}[R_{t+1}+\gamma q_{\pi}(S_{t+1},A_{t+1})|S_t=s, A_t=a]</script><p>同理，马尔科夫决策过程的Bellman方程还可以被转化为如下形式</p>
+<script type="math/tex; mode=display">
+v_{\pi}(s)=\sum_{a\in A}\pi(a|s)q_{\pi}(s,a)</script><script type="math/tex; mode=display">
+q_{\pi}(s,a)=R_{s}^a+\gamma \sum_{s^{'}\in S} P_{ss^{'}}^a v_{\pi}(s^{'})</script><p>其可视化过程如下图所示</p>
 <p><img src="http://orjn2q9xs.bkt.clouddn.com/2017102503.png" alt="Bellman equation for v"></p>
 <p><img src="http://orjn2q9xs.bkt.clouddn.com/2017102504.png" alt="Bellman equation for q"></p>
-<p>得到$v<em>{\pi}(s)$和$q</em>{\pi}(s,a)$后，互相代入各自方程，得到Bellman方程的另一种形式如下：<br>$$<br>v<em>{\pi}(s)=\sum</em>{a\in A}\pi(a|s) (R<em>{s}^a+\gamma \sum</em>{s^{‘}\in S} P<em>{ss^{‘}}^a v</em>{\pi}(s^{‘}))<br>$$</p>
-<p>$$<br>q<em>{\pi}(s,a)=R</em>{s}^a+\gamma \sum<em>{s^{‘}\in S} P</em>{ss^{‘}}^a (\sum<em>{a^{‘}\in A}\pi(a^{‘}|s^{‘})q</em>{\pi}(s^{‘},a^{‘}))<br>$$</p>
-<p>然后将上式$v<em>{\pi}(s)$化成矩阵形式如下：<br>$$<br>v</em>{\pi}=R^{\pi}+\gamma P^{\pi} v<em>{\pi}<br>$$<br>求解上式得<br>$$<br>v</em>{\pi}=(1-\gamma p^{\pi})^{-1}R^{\pi}<br>$$</p>
-<h2 id="最优值函数"><a href="#最优值函数" class="headerlink" title="最优值函数"></a>最优值函数</h2><p><strong>最优状态值函数</strong>的定义式如下：<br>$$<br>v<em>*(s)=\max</em>{\pi}v<em>{\pi}(s)<br>$$<br><strong>最优动作值函数</strong>的定义式如下：<br>$$<br>q</em><em>(s,a)=\max<em>{\pi}q</em>{\pi}(s,a)<br>$$<br>另外，以上两个值函数还可以通过下式联系在一起，形成<strong>Bellman最优化方程</strong><br>$$<br>v_</em>(s)=\max<em>{a}q</em><em>(s,a)=\max<em>{a}R</em>{s}^a+\gamma \sum<em>{s^{‘}\in S} P</em>{ss^{‘}}^a v_</em>(s^{‘})<br>$$</p>
-<p>$$<br>q<em>*(s,a)=R</em>{s}^a+\gamma \sum<em>{s^{‘}\in S} P</em>{ss^{‘}}^a v<em>*(s^{‘})=R</em>{s}^a+\gamma \sum<em>{s^{‘}\in S} P</em>{ss^{‘}}^a\max<em>{a^{‘}}q</em>*(s^{‘},a^{‘})<br>$$</p>
-<p>在这里还需要注意，Bellman最优化方程没有显式解，并且是非线性的，通常有以下几种方法来解决这一问题：</p>
+<p>得到$v_{\pi}(s)$和$q_{\pi}(s,a)$后，互相代入各自方程，得到Bellman方程的另一种形式如下：</p>
+<script type="math/tex; mode=display">
+v_{\pi}(s)=\sum_{a\in A}\pi(a|s) (R_{s}^a+\gamma \sum_{s^{'}\in S} P_{ss^{'}}^a v_{\pi}(s^{'}))</script><script type="math/tex; mode=display">
+q_{\pi}(s,a)=R_{s}^a+\gamma \sum_{s^{'}\in S} P_{ss^{'}}^a (\sum_{a^{'}\in A}\pi(a^{'}|s^{'})q_{\pi}(s^{'},a^{'}))</script><p>然后将上式$v_{\pi}(s)$化成矩阵形式如下：</p>
+<script type="math/tex; mode=display">
+v_{\pi}=R^{\pi}+\gamma P^{\pi} v_{\pi}</script><p>求解上式得</p>
+<script type="math/tex; mode=display">
+v_{\pi}=(1-\gamma p^{\pi})^{-1}R^{\pi}</script><h2 id="最优值函数"><a href="#最优值函数" class="headerlink" title="最优值函数"></a>最优值函数</h2><p><strong>最优状态值函数</strong>的定义式如下：</p>
+<script type="math/tex; mode=display">
+v_*(s)=\max_{\pi}v_{\pi}(s)</script><p><strong>最优动作值函数</strong>的定义式如下：</p>
+<script type="math/tex; mode=display">
+q_*(s,a)=\max_{\pi}q_{\pi}(s,a)</script><p>另外，以上两个值函数还可以通过下式联系在一起，形成<strong>Bellman最优化方程</strong></p>
+<script type="math/tex; mode=display">
+v_*(s)=\max_{a}q_*(s,a)=\max_{a}R_{s}^a+\gamma \sum_{s^{'}\in S} P_{ss^{'}}^a v_*(s^{'})</script><script type="math/tex; mode=display">
+q_*(s,a)=R_{s}^a+\gamma \sum_{s^{'}\in S} P_{ss^{'}}^a v_*(s^{'})=R_{s}^a+\gamma \sum_{s^{'}\in S} P_{ss^{'}}^a\max_{a^{'}}q_*(s^{'},a^{'})</script><p>在这里还需要注意，Bellman最优化方程没有显式解，并且是非线性的，通常有以下几种方法来解决这一问题：</p>
 <ul>
 <li>Value Iteration</li>
 <li>Policy Iteration</li>
 <li>Q-learning</li>
 <li>Sarsa</li>
 </ul>
-<h2 id="最优策略的求解"><a href="#最优策略的求解" class="headerlink" title="最优策略的求解"></a>最优策略的求解</h2><p>最优策略可通过最优动作值函数$q<em>*(a|s)$来寻找，其定义式如下：<br>$$<br>\pi</em><em>(a|s)=<br>\begin{cases}<br>    1 &amp; \text{if } a=arg\max<em>{a \in A} q</em></em>(s,a)\<br>    0 &amp; \text{otherwise}<br>\end{cases}<br>$$</p>
-<h2 id="马尔科夫决策过程的推广"><a href="#马尔科夫决策过程的推广" class="headerlink" title="马尔科夫决策过程的推广"></a>马尔科夫决策过程的推广</h2><p>在现实生活中，我们可能不会遇到标准的马尔科夫决策过程，这些过程通常有以下几种：</p>
+<h2 id="最优策略的求解"><a href="#最优策略的求解" class="headerlink" title="最优策略的求解"></a>最优策略的求解</h2><p>最优策略可通过最优动作值函数$q_*(a|s)$来寻找，其定义式如下：</p>
+<script type="math/tex; mode=display">
+\pi_*(a|s)=
+\begin{cases}
+    1 & \text{if } a=arg\max_{a \in A} q_*(s,a)\\
+    0 & \text{otherwise}
+\end{cases}</script><h2 id="马尔科夫决策过程的推广"><a href="#马尔科夫决策过程的推广" class="headerlink" title="马尔科夫决策过程的推广"></a>马尔科夫决策过程的推广</h2><p>在现实生活中，我们可能不会遇到标准的马尔科夫决策过程，这些过程通常有以下几种：</p>
 <ul>
 <li>无限和连续的MDPs</li>
 <li>部分观察的MDPs（POMDPs）</li>
