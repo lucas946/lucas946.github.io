@@ -105,7 +105,7 @@
 <meta property="og:image" content="http://orjn2q9xs.bkt.clouddn.com/2017102501.jpg">
 <meta property="og:image" content="http://orjn2q9xs.bkt.clouddn.com/2017102503.png">
 <meta property="og:image" content="http://orjn2q9xs.bkt.clouddn.com/2017102504.png">
-<meta property="og:updated_time" content="2017-09-25T12:00:35.000Z">
+<meta property="og:updated_time" content="2017-09-25T15:43:32.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="马尔可夫决策过程">
 <meta name="twitter:description" content="本文主要讲解了马尔科夫决策过程的数学描述以及数学推导，并且为了方便理解马尔科夫决策过程，还添加了对马尔科夫性以及马尔科夫奖励过程的描述。本文的重点是理解贝尔曼期望方程和贝尔曼最优化方程，并对最优策略求解的数学描述有深刻体会。">
@@ -365,7 +365,7 @@
 <a id="more"></a>
 <h2 id="马尔可夫模型的几类子模型"><a href="#马尔可夫模型的几类子模型" class="headerlink" title="马尔可夫模型的几类子模型"></a>马尔可夫模型的几类子模型</h2><p>所有的马尔科夫子模型都具备<strong>马尔科夫性</strong>，即系统的下个状态只与当前状态信息有关，而与之前的状态无关。</p>
 <script type="math/tex; mode=display">
-\mathbb{P}[S_{t+1}|S]=\mathbb{P}[S_{t+1}|S_1, \ldots, S_t]</script><p>马尔科夫决策过程（Markov Decision Processes, MDPs）就具有马尔科夫性。所不同的是，马尔科夫决策过程还考虑了动作，即系统的下个状态不仅和当前的状态有关，也和当前采取的动作有关。这里以下棋为例，当我们在某个局面（状态s）走了一步（动作a），这时对手的选择（导致下个状态$s^*$）是不确定的，但是他的选择只与s和a有关，而不用考虑更早之前的状态和动作。</p>
+\mathbb{P}[S_{t+1}|S_t]=\mathbb{P}[S_{t+1}|S_1, \ldots, S_t]</script><p>马尔科夫决策过程（Markov Decision Processes, MDPs）就具有马尔科夫性。所不同的是，马尔科夫决策过程还考虑了动作，即系统的下个状态不仅和当前的状态有关，也和当前采取的动作有关。这里以下棋为例，当我们在某个局面（状态s）走了一步（动作a），这时对手的选择（导致下个状态$s^*$）是不确定的，但是他的选择只与s和a有关，而不用考虑更早之前的状态和动作。</p>
 <p>这里再以一个表格来说明各类马尔科夫子模型之间的区别：</p>
 <div class="table-container">
 <table>
