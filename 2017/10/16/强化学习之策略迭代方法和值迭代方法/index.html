@@ -101,7 +101,7 @@
 <meta property="og:url" content="http://yoursite.com/2017/10/16/强化学习之策略迭代方法和值迭代方法/index.html">
 <meta property="og:site_name" content="野草集">
 <meta property="og:description" content="在马尔科夫决策过程$(S, A, P, R,\gamma )$所有参数全部知道的情况下，要想求解Bellman最优化方程，需要运用到动态规划（Dynamic Programming）的思想，有两种方法，一种被叫作基于策略的迭代，另一种是基于值函数的迭代。下面分别阐述之。">
-<meta property="og:updated_time" content="2017-10-16T09:31:04.000Z">
+<meta property="og:updated_time" content="2017-10-16T09:34:24.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="强化学习之策略迭代方法和值迭代方法">
 <meta name="twitter:description" content="在马尔科夫决策过程$(S, A, P, R,\gamma )$所有参数全部知道的情况下，要想求解Bellman最优化方程，需要运用到动态规划（Dynamic Programming）的思想，有两种方法，一种被叫作基于策略的迭代，另一种是基于值函数的迭代。下面分别阐述之。">
@@ -364,9 +364,8 @@ v_{\pi}(s)=\sum_{a\in A} \pi(a|s)[R_s^a+\gamma\sum_{s^{'}\in S}P_{ss^{'}}^a v_{\
 </li>
 <li><p>Policy Evaluation</p>
 <p>Repeat</p>
-<pre><code>$\varDelta \leftarrow 0$
-
-For each $s\in S$
+<p>$\varDelta \leftarrow 0$</p>
+<pre><code>For each $s\in S$
 
     $v \leftarrow v_{\pi}(s)$
 
