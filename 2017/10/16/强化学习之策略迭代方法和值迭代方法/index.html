@@ -101,7 +101,7 @@
 <meta property="og:url" content="http://yoursite.com/2017/10/16/强化学习之策略迭代方法和值迭代方法/index.html">
 <meta property="og:site_name" content="野草集">
 <meta property="og:description" content="在马尔科夫决策过程$(S, A, P, R,\gamma )$所有参数全部知道的情况下，要想求解Bellman最优化方程，需要运用到动态规划（Dynamic Programming）的思想，有两种方法，一种被叫作基于策略的迭代，另一种是基于值函数的迭代。下面分别阐述之。">
-<meta property="og:updated_time" content="2017-10-16T10:40:12.000Z">
+<meta property="og:updated_time" content="2017-10-16T10:42:42.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="强化学习之策略迭代方法和值迭代方法">
 <meta name="twitter:description" content="在马尔科夫决策过程$(S, A, P, R,\gamma )$所有参数全部知道的情况下，要想求解Bellman最优化方程，需要运用到动态规划（Dynamic Programming）的思想，有两种方法，一种被叫作基于策略的迭代，另一种是基于值函数的迭代。下面分别阐述之。">
@@ -380,7 +380,7 @@ v_{\pi}(s)=\sum_{a\in A} \pi(a|s)[R_s^a+\gamma\sum_{s^{'}\in S}P_{ss^{'}}^a v_{\
 <p>If policy-stable, then stop and return $v_{\pi}$ and $\pi$; else go to 2</p>
 </li>
 </ol>
-<p>从上述伪代码可以看出，基于策略的迭代分为两个步骤，一个是策略评估，一个是策略改进，并且最后该程序一定会收敛，并且收敛的时候，$v_{\pi} = v, \pi = \pi$。</p>
+<p>从上述伪代码可以看出，基于策略的迭代分为两个步骤，一个是策略评估，一个是策略改进，并且最后该程序一定会收敛，并且收敛的时候，$v_{\pi} = v_{*}, \pi = \pi_{*}$。</p>
 <h2 id="值迭代（Value-Iteration）"><a href="#值迭代（Value-Iteration）" class="headerlink" title="值迭代（Value Iteration）"></a>值迭代（Value Iteration）</h2><p>值迭代则是使用<strong>贝尔曼最优化方程</strong>而不是贝尔曼期望方程得到的，贝尔曼最优化方程如下所示：</p>
 <script type="math/tex; mode=display">
 v_{*}(s)=\max_{a\in A}R_s^a+\gamma \sum_{s^{'}\in S}P_{ss^{'}}^a v_{*}(s^{'})</script><p>其伪代码如下所示：</p>
