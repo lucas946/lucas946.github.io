@@ -78,7 +78,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="强化方法," />
+  <meta name="keywords" content="强化学习," />
 
 
 
@@ -95,7 +95,7 @@
 
 
 <meta name="description" content="本文主要介绍强化学习中涉及的蒙特卡洛方法，该方法是强化学习求解免模型（model-free）方法中的重要组成部分，主要分为同策略（on-policy）和异策略（off-policy）两个分支。另外，在具体求解Q函数的时候，还分为first-visit和all-visit两种计算技巧。">
-<meta name="keywords" content="强化方法">
+<meta name="keywords" content="强化学习">
 <meta property="og:type" content="article">
 <meta property="og:title" content="强化学习之蒙特卡洛方法">
 <meta property="og:url" content="http://yoursite.com/2017/10/17/强化学习之蒙特卡洛方法/index.html">
@@ -103,7 +103,7 @@
 <meta property="og:description" content="本文主要介绍强化学习中涉及的蒙特卡洛方法，该方法是强化学习求解免模型（model-free）方法中的重要组成部分，主要分为同策略（on-policy）和异策略（off-policy）两个分支。另外，在具体求解Q函数的时候，还分为first-visit和all-visit两种计算技巧。">
 <meta property="og:image" content="http://orjn2q9xs.bkt.clouddn.com/On-Policy%20MC.png">
 <meta property="og:image" content="http://orjn2q9xs.bkt.clouddn.com/Off-Policy%20MC.png">
-<meta property="og:updated_time" content="2017-10-17T11:21:55.000Z">
+<meta property="og:updated_time" content="2017-10-17T11:29:49.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="强化学习之蒙特卡洛方法">
 <meta name="twitter:description" content="本文主要介绍强化学习中涉及的蒙特卡洛方法，该方法是强化学习求解免模型（model-free）方法中的重要组成部分，主要分为同策略（on-policy）和异策略（off-policy）两个分支。另外，在具体求解Q函数的时候，还分为first-visit和all-visit两种计算技巧。">
@@ -391,7 +391,7 @@
 <script type="math/tex; mode=display">
 Q(x,a)=\frac{1}{m} \sum_{i=1}^{m}R_i</script><p>由上述的重要性采样定理可知，我们可以通过策略$\pi^{‘}$的采样轨迹来评估策略$\pi$，则仅需对累积奖赏加权</p>
 <script type="math/tex; mode=display">
-Q(x,a)=\frac{1}{m} \sum_{i=1}^{m} \frac{P^{\pi}_i}{P^{\pi^{'}}_i} R_i</script><p>其中，$P^{\pi}_i$和$P^{\pi^{‘}}_i$分别表示两个策略产生第$i$条轨迹的概率。对于一条给定的轨迹$<x_0,a_0,r_1,\ldots, x_{t-1},="" a_{t-1},="" r_t,="" x_t="">$，策略$\pi$产生该轨迹的概率为</x_0,a_0,r_1,\ldots,></p>
+Q(x,a)=\frac{1}{m} \sum_{i=1}^{m} \frac{P^{\pi}_i}{P^{\pi^{'}}_i} R_i</script><p>其中，$P^{\pi}_i$和$P^{\pi^{‘}}_i$分别表示两个策略产生第$i$条轨迹的概率。对于一条给定的轨迹，策略$\pi$产生该轨迹的概率为</p>
 <script type="math/tex; mode=display">
 P^{\pi}=\prod_{i=0}^{T-1} \pi(x_i,a_i)P^{a_i}_{x_i \rightarrow x_{i+1}}</script><p>由此可以计算得出$P^{\pi}_i$和$P^{\pi^{‘}}_i$的比值为</p>
 <script type="math/tex; mode=display">
@@ -414,7 +414,7 @@ P^{\pi}=\prod_{i=0}^{T-1} \pi(x_i,a_i)P^{a_i}_{x_i \rightarrow x_{i+1}}</script>
       
         <div class="post-tags">
           
-            <a href="/tags/强化方法/" rel="tag"># 强化方法</a>
+            <a href="/tags/强化学习/" rel="tag"># 强化学习</a>
           
         </div>
       
