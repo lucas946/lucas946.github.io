@@ -78,7 +78,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="软件安装," />
+  <meta name="keywords" content="蒙特卡洛方法," />
 
 
 
@@ -94,17 +94,20 @@
 
 
 
-<meta name="description" content="安装环境：Ubuntu 16.04 LTS  第一步 禁止集成的nouveau驱动由于Ubuntu自带了集成的第三方nouveau显卡驱动，如果不先去除，将无法安装Nvidia官方驱动。">
-<meta name="keywords" content="软件安装">
+<meta name="description" content="本文主要介绍强化学习中涉及的蒙特卡洛方法，该方法是强化学习求解免模型（model-free）方法中的重要组成部分，主要分为同策略（on-policy）和异策略（off-policy）两个分支。另外，在具体求解Q函数的时候，还分为first-visit和all-visit两种计算技巧。">
+<meta name="keywords" content="蒙特卡洛方法">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Ubuntu下NVIDIA驱动安装指南">
-<meta property="og:url" content="http://yoursite.com/2017/09/10/Ubuntu下NVIDIA驱动安装指南/index.html">
+<meta property="og:title" content="强化学习之蒙特卡洛方法">
+<meta property="og:url" content="http://yoursite.com/2017/10/17/强化学习之蒙特卡洛方法/index.html">
 <meta property="og:site_name" content="野草集">
-<meta property="og:description" content="安装环境：Ubuntu 16.04 LTS  第一步 禁止集成的nouveau驱动由于Ubuntu自带了集成的第三方nouveau显卡驱动，如果不先去除，将无法安装Nvidia官方驱动。">
-<meta property="og:updated_time" content="2017-09-10T05:55:21.000Z">
+<meta property="og:description" content="本文主要介绍强化学习中涉及的蒙特卡洛方法，该方法是强化学习求解免模型（model-free）方法中的重要组成部分，主要分为同策略（on-policy）和异策略（off-policy）两个分支。另外，在具体求解Q函数的时候，还分为first-visit和all-visit两种计算技巧。">
+<meta property="og:image" content="http://orjn2q9xs.bkt.clouddn.com/On-Policy%20MC.png">
+<meta property="og:image" content="http://orjn2q9xs.bkt.clouddn.com/Off-Policy%20MC.png">
+<meta property="og:updated_time" content="2017-10-17T11:15:58.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Ubuntu下NVIDIA驱动安装指南">
-<meta name="twitter:description" content="安装环境：Ubuntu 16.04 LTS  第一步 禁止集成的nouveau驱动由于Ubuntu自带了集成的第三方nouveau显卡驱动，如果不先去除，将无法安装Nvidia官方驱动。">
+<meta name="twitter:title" content="强化学习之蒙特卡洛方法">
+<meta name="twitter:description" content="本文主要介绍强化学习中涉及的蒙特卡洛方法，该方法是强化学习求解免模型（model-free）方法中的重要组成部分，主要分为同策略（on-policy）和异策略（off-policy）两个分支。另外，在具体求解Q函数的时候，还分为first-visit和all-visit两种计算技巧。">
+<meta name="twitter:image" content="http://orjn2q9xs.bkt.clouddn.com/On-Policy%20MC.png">
 
 
 
@@ -133,13 +136,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/09/10/Ubuntu下NVIDIA驱动安装指南/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/10/17/强化学习之蒙特卡洛方法/"/>
 
 
 
 
 
-  <title>Ubuntu下NVIDIA驱动安装指南 | 野草集</title>
+  <title>强化学习之蒙特卡洛方法 | 野草集</title>
   
 
 
@@ -282,7 +285,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/10/Ubuntu下NVIDIA驱动安装指南/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/17/强化学习之蒙特卡洛方法/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="左">
@@ -299,7 +302,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Ubuntu下NVIDIA驱动安装指南</h1>
+          <h1 class="post-title" itemprop="name headline">强化学习之蒙特卡洛方法</h1>
         
 
         <div class="post-meta">
@@ -311,8 +314,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-10T13:42:31+08:00">
-                2017-09-10
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-17T19:07:34+08:00">
+                2017-10-17
               </time>
             
 
@@ -355,31 +358,45 @@
 
       
         <blockquote>
-<p>安装环境：Ubuntu 16.04 LTS</p>
+<p> 本文主要介绍强化学习中涉及的蒙特卡洛方法，该方法是强化学习求解免模型（model-free）方法中的重要组成部分，主要分为同策略（on-policy）和异策略（off-policy）两个分支。另外，在具体求解Q函数的时候，还分为first-visit和all-visit两种计算技巧。</p>
 </blockquote>
-<h2 id="第一步-禁止集成的nouveau驱动"><a href="#第一步-禁止集成的nouveau驱动" class="headerlink" title="第一步 禁止集成的nouveau驱动"></a>第一步 禁止集成的nouveau驱动</h2><p>由于Ubuntu自带了集成的第三方nouveau显卡驱动，如果不先去除，将无法安装Nvidia官方驱动。</p>
 <a id="more"></a>
-<ol>
-<li><p>首先打开命令行界面，输入代码<code>lsmod | grep nouveau</code>，这时可以看出命令行有多行输出结果。</p>
-</li>
-<li><p>在<code>/etc/modprobe.d/</code>目录下新建文件名为blacklist-nouveau.conf的文件。</p>
-</li>
-<li><p>打开blacklist-nouveau.conf，并在其中添加如下代码：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">blacklist nouveau</div><div class="line">options nouveau modeset=0</div></pre></td></tr></table></figure>
-</li>
-<li><p>更新配置信息，输入命令<code>sudo update-initramfs -u</code>，此时需要重启电脑。</p>
-</li>
-<li><p>重启电脑后会发现电脑显示屏分辨率有明显变化，在命令行界面再次输入代码<code>lsmod | grep nouveau</code>，此时无任何输出，说明nouveau驱动已被禁止。</p>
-</li>
+<h2 id="背景介绍"><a href="#背景介绍" class="headerlink" title="背景介绍"></a>背景介绍</h2><ol>
+<li><strong>什么是蒙特卡洛方法？</strong>简单来说，蒙特卡洛方法就是利用统计学的思想来对Q函数进行求解，采用<strong>平均累积奖赏作为期望累积奖赏的近似</strong>。这样一来，就避免了大量的数值计算过程，并且还能够解决环境模型未知的情况。</li>
+<li>蒙特卡洛方法同样具有其局限性，它只能够解决有限状态下的强化学习任务，即每一次episode都有一个终止状态。</li>
+<li>值得注意的是，蒙特卡洛方法<strong>只涉及到Q函数的求解</strong>，并不涉及V函数的求解。这是因为通过Q函数我们可以很快得到最优策略$\pi$，而又因为此时环境未知，无法从V函数快速得到Q函数，所以此时对V函数求解意义不大。</li>
 </ol>
-<h2 id="第二步-安装Nvidia官方驱动"><a href="#第二步-安装Nvidia官方驱动" class="headerlink" title="第二步 安装Nvidia官方驱动"></a>第二步 安装Nvidia官方驱动</h2><ol>
-<li>在命令行界面输入命令<code>sudo service lightdm stop</code>以关闭X-window服务。</li>
-<li>按住<code>Ctrl+Alt+F1</code>进入字符控制台界面。</li>
-<li>输入用户名和密码登录系统，并进入显卡驱动所在的文件夹位置。</li>
-<li>运行命令<code>sudo ./NVIDIAXXXXXXXX.run</code>完成安装。</li>
-<li>安装完成后输入命令<code>sudo service lightdm start</code>开启X-window服务并进入图形界面，此时可以看到显示屏分辨率已调至最佳。</li>
-<li>打开命令行工具，输入命令<code>nvidia-smi</code>，此时界面会有显卡信息输出，说明显卡驱动已安装成功。</li>
-</ol>
+<h2 id="方法描述"><a href="#方法描述" class="headerlink" title="方法描述"></a>方法描述</h2><p>在模型未知的情况下，从初始状态出发，使用某种策略（通常初始策略是$\pi(a|s)=\frac{1}{A(s)}$）进行采样，执行该策略获得轨迹</p>
+<script type="math/tex; mode=display">
+<x_0, a_0, r_1, x_1, a_1, r_2, \ldots, x_{T-1}, a_{T-1}, r_T, x_T></script><p>然后，对轨迹中出现的每一对状态-动作，记录其后的奖赏之和，作为该状态-动作对的一次累积奖赏采样值。多次采样得到多条轨迹后，将每个状态-动作对的累积奖赏值进行平均，即得到状态-动作值函数（Q函数）的估计。</p>
+<h2 id="同策略方法"><a href="#同策略方法" class="headerlink" title="同策略方法"></a>同策略方法</h2><p>可以看出，要想得到Q函数的良好近似，就需要多次采样以得到不同的轨迹，以期遍历所有的<strong>状态空间和动作空间</strong>。同时，在实际操作中，可能我们每次迭代得到的策略是确定性的，即$\pi(a|s)=1$，或$\pi=arg \max_aQ(s,a)$，这样带来的后果就是我们无法遍历所有的状态空间和动作空间，面临“仅利用”的困境。为了跳出这一困境，就需要制定一种新的策略，使得所有动作都有可能被选中，这种新策略的数学定义如下：</p>
+<script type="math/tex; mode=display">
+\pi^{\varepsilon}(x)=
+\begin{cases}
+    \pi(s) &\text{以概率}1-\varepsilon \\
+    \text{A中以均匀概率选取的动作} &\text{以概率}\varepsilon
+\end{cases}</script><p>其中，$\pi(s)$被称为<strong>原始策略</strong>，即算法每次迭代后得出的策略，也是最后所要求的策略，$\pi^{\varepsilon}(s)$被称为<strong>$\varepsilon$贪心策略</strong>。从新策略的数学定义可以看出，当前最优动作被选中的概率是$1-\varepsilon+\frac{\varepsilon}{|A|}$，而每个非最优的动作被选中的概率是$\frac{\varepsilon}{|A|}$。 </p>
+<p><img src="http://orjn2q9xs.bkt.clouddn.com/On-Policy%20MC.png" alt="通策略蒙特卡洛算法"></p>
+<p>同策略蒙特卡洛学习算法生成的是$\varepsilon$贪心策略，而我们要求的是原始策略，能否在策略评估的时候使用$\varepsilon$贪心策略，而在策略改进的使用使用原始策略呢？答案是肯定的，这就导致了异策略算法的发明。</p>
+<h2 id="异策略方法"><a href="#异策略方法" class="headerlink" title="异策略方法"></a>异策略方法</h2><h3 id="重要性采样"><a href="#重要性采样" class="headerlink" title="重要性采样"></a>重要性采样</h3><p>函数$f(x)$在概率分布$p$下的期望可表达为</p>
+<script type="math/tex; mode=display">
+\mathbb{E}[f]=\int_x p(x)f(x)dx</script><p>可通过从概率分布$p$上的采样${x_1,x_2,\ldots,x_m}$来估计$f$的期望，即</p>
+<script type="math/tex; mode=display">
+\hat{\mathbb{E}}[f]=\frac{1}{m} \sum_{i=1}^{m} f(x_i)</script><p>这时候引入另一个分布$q$，则函数$f$在概率分布$p$下的期望也可等价地写为</p>
+<script type="math/tex; mode=display">
+\mathbb{E}[f]=\int_x q(x)\frac{p(x)}{q(x)}f(x)dx</script><p>通过在$q$上的采样${x_1^{‘}, x_2^{‘}, \ldots, x_m^{‘}}$可估计$f$的期望如下：</p>
+<script type="math/tex; mode=display">
+\hat{\mathbb{E}}[f]=\frac{1}{m} \sum_{i=1}^{m} \frac{p(x_i^{'})}{q(x_i^{'})} f(x_i^{'})</script><p>这样的基于一个分布的采样来估计另一个分布下的期望称为<strong>重要性采样</strong>。</p>
+<h3 id="算法推导"><a href="#算法推导" class="headerlink" title="算法推导"></a>算法推导</h3><p>使用策略$\pi$的采样轨迹来评估策略$\pi$，实际上就是用累积奖赏估计期望</p>
+<script type="math/tex; mode=display">
+Q(x,a)=\frac{1}{m} \sum_{i=1}^{m}R_i</script><p>由上述的重要性采样定理可知，我们可以通过策略$\pi^{‘}$的采样轨迹来评估策略$\pi$，则仅需对累积奖赏加权</p>
+<script type="math/tex; mode=display">
+Q(x,a)=\frac{1}{m} \sum_{i=1}^{m} \frac{P^{\pi}_i}{P^{\pi^{'}}_i} R_i</script><p>其中，$P^{\pi}_i$和$P^{\pi^{‘}}_i$分别表示两个策略产生第$i$条轨迹的概率。对于一条给定的轨迹$<x_0,a_0,r_1,\ldots, x_{t-1},="" a_{t-1},="" r_t,="" x_t="">$，策略$\pi$产生该轨迹的概率为</x_0,a_0,r_1,\ldots,></p>
+<script type="math/tex; mode=display">
+P^{\pi}=\prod_{i=0}^{T-1} \pi(x_i,a_i)P^{a_i}_{x_i \rightarrow x_{i+1}}</script><p>由此可以计算得出$P^{\pi}_i$和$P^{\pi^{‘}}_i$的比值为</p>
+<script type="math/tex; mode=display">
+\frac{P^{\pi}}{P^{\pi^{'}}}=\prod_{i=0}^{T-1}\frac{\pi(x_i,a_i)}{\pi^{'}(x_i,a_i)}</script><p>异策略蒙特卡洛算法就是在策略评估的时候使用的是$\varepsilon$贪心策略，而在策略改进的时候使用的是原始策略，这样最后算法得到的就是原始策略，符合我们的要求。其算法流程如下所示：</p>
+<p><img src="http://orjn2q9xs.bkt.clouddn.com/Off-Policy%20MC.png" alt="异策略蒙特卡洛学习"></p>
 
       
     </div>
@@ -397,7 +414,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/软件安装/" rel="tag"># 软件安装</a>
+            <a href="/tags/蒙特卡洛方法/" rel="tag"># 蒙特卡洛方法</a>
           
         </div>
       
@@ -410,15 +427,15 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2017/10/16/强化学习之策略迭代方法和值迭代方法/" rel="next" title="强化学习之策略迭代方法和值迭代方法">
+                <i class="fa fa-chevron-left"></i> 强化学习之策略迭代方法和值迭代方法
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/09/10/Ubuntu下CUDA和cuDNN的安装/" rel="prev" title="Ubuntu下CUDA和cuDNN的安装">
-                Ubuntu下CUDA和cuDNN的安装 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -543,7 +560,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#第一步-禁止集成的nouveau驱动"><span class="nav-number">1.</span> <span class="nav-text">第一步 禁止集成的nouveau驱动</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第二步-安装Nvidia官方驱动"><span class="nav-number">2.</span> <span class="nav-text">第二步 安装Nvidia官方驱动</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#背景介绍"><span class="nav-number">1.</span> <span class="nav-text">背景介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#方法描述"><span class="nav-number">2.</span> <span class="nav-text">方法描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#同策略方法"><span class="nav-number">3.</span> <span class="nav-text">同策略方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#异策略方法"><span class="nav-number">4.</span> <span class="nav-text">异策略方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#重要性采样"><span class="nav-number">4.1.</span> <span class="nav-text">重要性采样</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#算法推导"><span class="nav-number">4.2.</span> <span class="nav-text">算法推导</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -741,6 +758,26 @@
   
 
   
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
   
 
 
