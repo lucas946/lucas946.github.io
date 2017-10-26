@@ -96,17 +96,17 @@
 
 
 
-<meta name="description" content="安装环境：Ubuntu 16.04 LTS  第一步 禁止集成的nouveau驱动由于Ubuntu自带了集成的第三方nouveau显卡驱动，如果不先去除，将无法安装Nvidia官方驱动。">
+<meta name="description" content="本文介绍了在macOS下手动完全卸载GUI软件的方法">
 <meta name="keywords" content="软件安装">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Ubuntu下NVIDIA驱动安装指南">
-<meta property="og:url" content="http://yoursite.com/2017/09/10/Ubuntu下NVIDIA驱动安装指南/index.html">
+<meta property="og:title" content="mac下彻底删除软件技巧">
+<meta property="og:url" content="http://yoursite.com/2017/10/26/mac下彻底删除软件技巧/index.html">
 <meta property="og:site_name" content="野草集">
-<meta property="og:description" content="安装环境：Ubuntu 16.04 LTS  第一步 禁止集成的nouveau驱动由于Ubuntu自带了集成的第三方nouveau显卡驱动，如果不先去除，将无法安装Nvidia官方驱动。">
-<meta property="og:updated_time" content="2017-09-10T05:55:21.000Z">
+<meta property="og:description" content="本文介绍了在macOS下手动完全卸载GUI软件的方法">
+<meta property="og:updated_time" content="2017-10-26T12:13:45.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Ubuntu下NVIDIA驱动安装指南">
-<meta name="twitter:description" content="安装环境：Ubuntu 16.04 LTS  第一步 禁止集成的nouveau驱动由于Ubuntu自带了集成的第三方nouveau显卡驱动，如果不先去除，将无法安装Nvidia官方驱动。">
+<meta name="twitter:title" content="mac下彻底删除软件技巧">
+<meta name="twitter:description" content="本文介绍了在macOS下手动完全卸载GUI软件的方法">
 
 
 
@@ -135,13 +135,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/09/10/Ubuntu下NVIDIA驱动安装指南/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/10/26/mac下彻底删除软件技巧/"/>
 
 
 
 
 
-  <title>Ubuntu下NVIDIA驱动安装指南 | 野草集</title>
+  <title>mac下彻底删除软件技巧 | 野草集</title>
   
 
 
@@ -284,7 +284,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/10/Ubuntu下NVIDIA驱动安装指南/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/26/mac下彻底删除软件技巧/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="左">
@@ -301,7 +301,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Ubuntu下NVIDIA驱动安装指南</h1>
+          <h1 class="post-title" itemprop="name headline">mac下彻底删除软件技巧</h1>
         
 
         <div class="post-meta">
@@ -313,8 +313,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-10T13:42:31+08:00">
-                2017-09-10
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-26T20:10:58+08:00">
+                2017-10-26
               </time>
             
 
@@ -356,31 +356,23 @@
       
 
       
-        <blockquote>
-<p>安装环境：Ubuntu 16.04 LTS</p>
-</blockquote>
-<h2 id="第一步-禁止集成的nouveau驱动"><a href="#第一步-禁止集成的nouveau驱动" class="headerlink" title="第一步 禁止集成的nouveau驱动"></a>第一步 禁止集成的nouveau驱动</h2><p>由于Ubuntu自带了集成的第三方nouveau显卡驱动，如果不先去除，将无法安装Nvidia官方驱动。</p>
-<a id="more"></a>
+        <p>本文介绍了在macOS下手动完全卸载GUI软件的方法<br><a id="more"></a></p>
 <ol>
-<li><p>首先打开命令行界面，输入代码<code>lsmod | grep nouveau</code>，这时可以看出命令行有多行输出结果。</p>
+<li><p>删除app内容包</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">rm -r /Applications/softwarename.app</div></pre></td></tr></table></figure>
 </li>
-<li><p>在<code>/etc/modprobe.d/</code>目录下新建文件名为blacklist-nouveau.conf的文件。</p>
+<li><p>删除配置文件（config）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">rm -r ~/Library/Preferences/softwarename</div></pre></td></tr></table></figure>
 </li>
-<li><p>打开blacklist-nouveau.conf，并在其中添加如下代码：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">blacklist nouveau</div><div class="line">options nouveau modeset=0</div></pre></td></tr></table></figure>
+<li><p>删除系统文件（system）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">rm -r ~/Library/Caches/softwarename</div></pre></td></tr></table></figure>
 </li>
-<li><p>更新配置信息，输入命令<code>sudo update-initramfs -u</code>，此时需要重启电脑。</p>
+<li><p>删除插件（Plugins）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">rm -r ~/Library/Application\ Support/softwarename</div></pre></td></tr></table></figure>
 </li>
-<li><p>重启电脑后会发现电脑显示屏分辨率有明显变化，在命令行界面再次输入代码<code>lsmod | grep nouveau</code>，此时无任何输出，说明nouveau驱动已被禁止。</p>
+<li><p>删除日志（Logs）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">rm -r ~/Library/Logs/softwarename</div></pre></td></tr></table></figure>
 </li>
-</ol>
-<h2 id="第二步-安装Nvidia官方驱动"><a href="#第二步-安装Nvidia官方驱动" class="headerlink" title="第二步 安装Nvidia官方驱动"></a>第二步 安装Nvidia官方驱动</h2><ol>
-<li>在命令行界面输入命令<code>sudo service lightdm stop</code>以关闭X-window服务。</li>
-<li>按住<code>Ctrl+Alt+F1</code>进入字符控制台界面。</li>
-<li>输入用户名和密码登录系统，并进入显卡驱动所在的文件夹位置。</li>
-<li>运行命令<code>sudo ./NVIDIAXXXXXXXX.run</code>完成安装。</li>
-<li>安装完成后输入命令<code>sudo service lightdm start</code>开启X-window服务并进入图形界面，此时可以看到显示屏分辨率已调至最佳。</li>
-<li>打开命令行工具，输入命令<code>nvidia-smi</code>，此时界面会有显卡信息输出，说明显卡驱动已安装成功。</li>
 </ol>
 
       
@@ -412,15 +404,15 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2017/10/17/强化学习之蒙特卡洛方法/" rel="next" title="强化学习之蒙特卡洛方法">
+                <i class="fa fa-chevron-left"></i> 强化学习之蒙特卡洛方法
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/09/10/Ubuntu下CUDA和cuDNN的安装/" rel="prev" title="Ubuntu下CUDA和cuDNN的安装">
-                Ubuntu下CUDA和cuDNN的安装 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -472,17 +464,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview sidebar-panel">
+      <section class="site-overview sidebar-panel sidebar-panel-active">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/1.jpg"
@@ -542,22 +525,6 @@
 
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#第一步-禁止集成的nouveau驱动"><span class="nav-number">1.</span> <span class="nav-text">第一步 禁止集成的nouveau驱动</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第二步-安装Nvidia官方驱动"><span class="nav-number">2.</span> <span class="nav-text">第二步 安装Nvidia官方驱动</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       
